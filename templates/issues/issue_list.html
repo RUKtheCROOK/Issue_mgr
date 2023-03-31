@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+<!-- title -->
+{% block title %}Issues{% endblock title %}
+
+<!-- content -->
+{% block content %}
+<h1>Issues</h1>
+<div class="conatiner">
+  {% if issues %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Created</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for issue in issues %}
+      <tr>
+        <td>{{ issue.title }}</td>
+        <td>{{ issue.description }}</td>
+        <td>{{ issue.created }}</td>
+        <td>{{ issue.status }}</td>
+        <td>
+          <a href="{% url 'issue_detail' issue.id %}" class="btn btn-dark"
+            >View</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p>No issues found</p>
+{% endif %}
+<!--  -->
+{% endblock content %}

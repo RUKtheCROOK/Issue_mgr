@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-def populate_teams(apps, schema_editor):
+def populate_teams(apps, schemaeditor):
     defaults = {
         'a': 'the a team',
         'b': 'the b team',
@@ -13,7 +13,7 @@ def populate_teams(apps, schema_editor):
         team_obj = Team(name=key, description=desc)
         team_obj.save()
 
-def populate_roles(apps, schema_editor):
+def populate_roles(apps, schemaeditor):
     defaults = {
         'dev': 'dev role',
         'scrum mate': 'scrum mate role',
