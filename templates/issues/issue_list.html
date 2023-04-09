@@ -6,37 +6,99 @@
 <!-- content -->
 {% block content %}
 <h1>Issues</h1>
-<div class="conatiner">
-  {% if issues %}
+<p>*Note you may only see issues assigned to your team.</p>
+
+<div class="container">
+  {% if to_do_list %}
+  <h2>To Do</h2>
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Title</th>
+        <th scope="col">Team</th>
         <th scope="col">Description</th>
         <th scope="col">Created</th>
         <th scope="col">Status</th>
-        <th scope="col">Actions</th>
+        <th scope="col">Priority</th>
       </tr>
     </thead>
     <tbody>
-      {% for issue in issues %}
-      <tr>
+      {% for issue in to_do_list %}
+      {% if request.user.team and issue.assignee == request.user.team %}
+      <tr onclick="location.href='{% url 'issue_detail' issue.id %}'" style="cursor: pointer">
         <td>{{ issue.title }}</td>
+        <td>{{ issue.assignee }}</td>
         <td>{{ issue.description }}</td>
-        <td>{{ issue.created }}</td>
+        <td>{{ issue.created_at }}</td>
         <td>{{ issue.status }}</td>
-        <td>
-          <a href="{% url 'issue_detail' issue.id %}" class="btn btn-dark"
-            >View</a
-          >
-        </td>
+        <td>{{ issue.priority }}</td>
       </tr>
+      {% endif %}
       {% endfor %}
     </tbody>
   </table>
+  {% endif %}
+
+
+  {% if in_progress_list %}
+  <h2>In Progress</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Team</th>
+        <th scope="col">Description</th>
+        <th scope="col">Created</th>
+        <th scope="col">Status</th>
+        <th scope="col">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for issue in in_progress_list %}
+      {% if request.user.team and issue.assignee == request.user.team %}
+      <tr onclick="location.href='{% url 'issue_detail' issue.id %}'" style="cursor: pointer">
+        <td>{{ issue.title }}</td>
+        <td>{{ issue.assignee }}</td>
+        <td>{{ issue.description }}</td>
+        <td>{{ issue.created_at }}</td>
+        <td>{{ issue.status }}</td>
+        <td>{{ issue.priority }}</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if done_list %}
+  <h2>Done</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Team</th>
+        <th scope="col">Description</th>
+        <th scope="col">Created</th>
+        <th scope="col">Status</th>
+        <th scope="col">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for issue in done_list %}
+      {% if request.user.team and issue.assignee == request.user.team %}
+      <tr onclick="location.href='{% url 'issue_detail' issue.id %}'" style="cursor: pointer">
+        <td>{{ issue.title }}</td>
+        <td>{{ issue.assignee }}</td>
+        <td>{{ issue.description }}</td>
+        <td>{{ issue.created_at }}</td>
+        <td>{{ issue.status }}</td>
+        <td>{{ issue.priority }}</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
 </div>
-{% else %}
-<p>No issues found</p>
-{% endif %}
 <!--  -->
 {% endblock content %}

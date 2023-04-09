@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% if request.user.team and issue.assignee == request.user.team %}
+<!-- title -->
+{% block title %}{{ issue.title }}{% endblock title %}
+
+<!-- content -->
+{% block content %}
+<div class="container card">
+  <div class="row">
+    <div class="text-center">
+      <h1>Title: {{ issue.title }}</h1>
+      <p><b>Description:</b> {{ issue.description }}</p>
+      <p><b>Created on:</b> {{ issue.created_at }} UTC</p>
+      <p><b>Reporter:</b> {{ issue.reporter }}</p>
+      <p><b>Assignee:</b> {{ issue.assignee }}</p>
+      <p><b>Status:</b> {{ issue.status }}</p>
+      <p><b>Priority:</b> {{ issue.priority }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="text-center">
+      <a href="{% url 'issue_edit' issue.id %}" class="btn btn-dark">Edit</a>
+      <a href="{% url 'issue_delete' issue.id %}" class="btn btn-danger">Delete</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% else %}
+<!--  -->
+<h1>Sorry, you do not have access to this issue. Please return home.</h1>
+<div class="row">
+  <div class="col-md-12">
+    <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+  </div>
+</div>
+{% endif %}

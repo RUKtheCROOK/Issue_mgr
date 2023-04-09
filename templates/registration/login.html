@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+<!-- the title -->
+{%block title%}Login{%endblock title%}
+<!-- the content -->
+{%block content%}
+<div class="container text-center">
+  <h1>Login</h1>
+  <div class="container card">
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-dark" value="login">Submit</button>
+    </form>
+  </div>
+  <div class="container">
+    <p>Sign up or reset password:</p>
+    <a href="{% url 'signup' %}" class="btn btn-dark">Sign Up</a>
+    <a href="{% url 'password_reset' %}" class="btn btn-dark">Reset Password</a>
+
+  </div>
+</div>
+{%endblock content%}

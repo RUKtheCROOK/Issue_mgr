@@ -18,3 +18,4 @@ class Role(models.Model):
 class CustomUser(AbstractUser):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
+    email = models.EmailField(max_length=254)
